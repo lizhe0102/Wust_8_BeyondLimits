@@ -1,8 +1,10 @@
 
+    
     <script>
         function Check() {
             var reg = /^([a-zA-Z0-9_-])+@@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
             var UserName = document.getElementById("UserName");
+            var Code = document.getElementById("Code");
             var email = document.getElementById("Email");
             var pwd1 = document.getElementById("Password");
             var pwd2 = document.getElementById("RePassword");
@@ -26,7 +28,7 @@
                 document.getElementById("PasswordL").innerText = "*两次密码输入不正确！"
             }
             else {
-                flag = 1;
+                flag = 1+flag;
             }
 
             if (email.value!=null&&reg.test(email.value))
@@ -38,10 +40,11 @@
                 falg = 0;
                 document.getElementById("EmailL").innerText = "*Email出错！";
             }
-            if (flag == 2)
+           if (flag == 2)
             {
-                MYGET(UserName, pwd1, email);
+                MYGET(UserName.value, pwd1.value, email.value, Code.value);
             }
+            
         }
 
 
@@ -59,25 +62,25 @@
             nextnode.innerText = "";
         }
 
-        function GetCode(x,y,z) {
+        function MYGET(x, y, z, c) {
             $.ajax({
-                type: "post", url: "/User/GetCode", data: { UserName: x, Password: y, Email:z },success: function (code) {
+                type: "post", url: "/User/Register", data: "UserName="+x+"&Password="+ y+"&Email="+z+"&code="+ c , success: function (rm) {
                     //alert(JSON.stringify(code));
-                    document.getElementById("code").innerText = JSON.stringify(code)
+                    if(rm.flag)
+                    {
+                        window.location.href = rm.Message;
+                    }
+                    else{
+                        document.getElementById("ErrorL").innerText = rm.Message;
+                    }
                 }, dataType: "json"
             })
         }
 
-        function MYGET() {
+        function GetCode() {
             $.ajax({
-                type: "post", url: "/User/Register", data: null, success: function (data) {
-                    var u = data;
-                    //debugger;
-                    //alert(JSON.stringify(data));
-                    $("#UserName").val(u.UserName);
-                    //document.getElementById("UserName").value = u.UserName;
-                    document.getElementById("Email").value = u.Email;
-                    document.getElementById("Password").value = u.Password;
+                type: "post", url: "/User/GetCode", data: null, success: function (data) {
+                    document.getElementById("CodeL").innerText = data;
                 }, dataType: "json"
             });
         }
@@ -88,6 +91,9 @@
     <form>
         <fieldset>
             <legend align="center">注册</legend>
+            <div>
+                <label id="ErrorL" style="color:red"></label>
+            </div>
             <div>
                 姓名：<input type="text" name="UserName" id="UserName" onfocus="_focus(this)" /><lable style="color:red" id="UserNameL"></lable><br />
             </div>
@@ -100,7 +106,8 @@
             <div>
                 邮箱：<input type="text" name="Email" id="Email" onfocus="_focus(this)" /><lable style="color:red" id="EmailL"></lable><br />
             </div>
-            <label id="code" class="label" style="color:red"></label><input type="button" class="btn btn-default" onclick="GetCode()" value="获取注册码"/>
+            <input type="text" id="Code"/>
+            <label id="CodeL" class="label" style="color:red"></label><input type="button" class="btn btn-default" onclick="GetCode()" value="获取注册码"/>
             <div>
                 <input type="button" value="Register"  onclick="Check()" onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" />
             </div>
@@ -108,5 +115,3 @@
     </form>
    
 </div>
-
-
