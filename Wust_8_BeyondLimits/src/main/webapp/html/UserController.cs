@@ -4,16 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using StoreOnline.Data;
 
 namespace StoreOnline.Controllers
 {
     public class UserController : Controller
     {
         // GET: User
-        private List<User> userList = new List<Models.User>()
-        {
-            new User() {UserName="wustzz",Password="1234",Email="1194717390@qq.com" }
-        };
         public ActionResult Index()
         {
             return View();
@@ -33,16 +30,16 @@ namespace StoreOnline.Controllers
             ReturnMessage rm = new ReturnMessage();
             rm.flag = false;
             string ErrorMessage = "";
-            if (Session[code]!=null)
+            if (HttpContext.Session["Code"] != null && HttpContext.Session["Code"].ToString() == code)
             {
-                //List<User> u = userList.Where(i => i.UserName.Equals(user.UserName)).ToList();
-                if ( userList.Where(i => i.UserName.Equals(user.UserName)).ToList().Count>0)
+                if ( Data.Data.GetData().GetUserData().Where(i => i.UserName.Equals(user.UserName)).ToList().Count>0)
                 {
                     ErrorMessage = "用户已存在，请重新新输入！";
                 }
                 else
                 {
-                    userList.Add(user);
+                    HttpContext.Session["User"] = user.UserName;
+                    Data.Data.GetData().GetUserData().Add(user);
                     rm.flag = true;
                     rm.Message = "/User/Index";
                 }
@@ -63,11 +60,12 @@ namespace StoreOnline.Controllers
             ReturnMessage rm = new ReturnMessage();
             rm.flag = false;
             rm.Message = UserName + Password + code;
-            
-            if(Session[code]!=null)
+            //验证码是否通过
+            if(HttpContext.Session["Code"]!=null&&HttpContext.Session["Code"].ToString()==code)
             {
                 User user = new Models.User();
-               foreach(var u in userList)
+                //查看用户是否存在
+               foreach(var u in Data.Data.GetData().GetUserData())
                 {
                     if (u.UserName == UserName)
                     {
@@ -78,6 +76,7 @@ namespace StoreOnline.Controllers
                 }
                 if(user.UserName.Equals(UserName) &&user.Password.Equals(Password))
                 {
+                    HttpContext.Session["User"] = user.UserName;
                     rm.flag = true;
                     rm.Message = "/User/Index";
                 }
@@ -94,7 +93,7 @@ namespace StoreOnline.Controllers
             return Json(rm);
         }
         
-        public ActionResult GetCode()
+        public ActionResult GetCode(string code)
         {
             Random a = new Random();
             string b = null;
@@ -102,7 +101,7 @@ namespace StoreOnline.Controllers
             {
                 b=b + a.Next(0, 10);
             }
-            Session[b] = b;
+            HttpContext.Session["Code"] = b;
             HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
             return Json(b);
         }
