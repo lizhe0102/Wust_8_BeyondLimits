@@ -1,0 +1,30 @@
+﻿<script src="~/scripts/jquery-3.1.1.js"></script>
+
+<div class="box-group" style="width:400px;">
+    <form action="/Admin/UpLoadBook"  method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="BookName">BookName</label>
+            <input type="text"name="BookName" class="form-control" id="BookName" placeholder="BookName">
+        </div>
+        <div class="form-group">
+            <label for="BookType">BookType</label>
+            <input type="text" name="BookType" class="form-control" id="BookType" placeholder="BookType">
+        </div>
+        <div class="form-group">
+            <label for="BookIntroduce">BookIntroduce</label>
+            <input type="text" name="BookIntroduce"class="form-control" id="BookIntroduce" placeholder="BookIntroduce">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPrice">Price</label>
+            <input type="text"  name="Price"class="form-control" id="Price" placeholder="Price">
+        </div>
+        <div class="form-group">
+            <label for="BookAdress">BookImg</label>
+            <input type="file" name="BookAdress" id="BookAdress"class="easyui-filebox"/>
+        </div>
+        <div >
+            <input  type="submit" value="提   交"style="width:80px;height:30px;float:right" />
+        </div>
+    </form>
+</div>
+

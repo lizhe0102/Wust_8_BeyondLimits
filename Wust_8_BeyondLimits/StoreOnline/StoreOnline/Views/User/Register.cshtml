@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-    <meta charset="utf-8" />
-</head>
+﻿<script src="~/scripts/jquery-3.1.1.js"></script>
+<style>
+    label .hid {
+        display:none;
+    }
+    label .show{
+        display:normal;
+        color:red;
+    }
+
+</style>
     <script>
         function Check() {
             var reg = /^([a-zA-Z0-9_-])+@@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
@@ -19,10 +23,6 @@
             {
                 document.getElementById("UserNameL").innerText = "*用户名不能为空";
             }
-            if (email.value == "")
-            {
-                document.getElementById("EmailL").innerText = "*Email出错！"
-            }
             if (pwd1.value == "" || pwd2.value == "")
             {
                 document.getElementById("PasswordL").innerText = "*密码不能为空";
@@ -36,20 +36,23 @@
                 flag = 1+flag;
             }
 
-            if (email.value!=null&&reg.test(email.value))
+            if (email.value == ""||email.value==null) {
+                document.getElementById("EmailL").innerText = "*Email不能为空！"
+            }
+            else  if (reg.test(email.value))
             {
                 flag = flag + 1;
             }
             else
             {
                 falg = 0;
-                document.getElementById("EmailL").innerText = "*Email出错！";
+                document.getElementById("EmailL").innerText = "*Email格式如：1194717@qq.com！";
             }
+
            if (flag == 2)
             {
                 MYGET(UserName.value, pwd1.value, email.value, Code.value);
             }
-            
         }
 
 
@@ -82,6 +85,8 @@
             })
         }
 
+       
+
         function GetCode() {
             $.ajax({
                 type: "post", url: "/User/GetCode", data: null, success: function (data) {
@@ -89,31 +94,44 @@
                 }, dataType: "json"
             });
         }
+       /*
+        $(document).ready(function () {
+            $("input").focus(function () {
+                $(this.nextElementSibling.nextElementSibling).css("show")
+            })
+        })
        
+        $(document).ready(function () {
+            $("input").blur(function () {
+                $(this.nextElementSibling.nextElementSibling).css("hid")
+            })
+        })
+         */
     </script>
-    <h2>Register</h2>
-    <div>
-    <form>
+    <div  style="align-content:center">
+    <form >
         <fieldset>
             <legend align="center">注册</legend>
             <div>
                 <label id="ErrorL" style="color:red"></label>
             </div>
-            <div>
-                姓名：<input type="text" name="UserName" id="UserName" onfocus="_focus(this)" /><lable style="color:red" id="UserNameL"></lable><br />
+            <div class="form-group" >
+                姓名：<input type="text" name="UserName" id="UserName" onfocus="_focus(this)"  placeholder="请输入用户名" /><label id="UserNameL" style="color:red"></label><br />
             </div>
-            <div>
-                密码：<input type="password" name="Password" id="Password" onfocus="_focus(this)" /><lable style="color:red" id="PasswordL"></lable><br />
+            <div class="form-group" >
+                密码：<input type="password" name="Password" id="Password" onfocus="_focus(this)" placeholder="请输入密码"/><lable style="color:red" id="PasswordL"></lable><br />
             </div>
-            <div>
-                密码：<input type="password" name="RePassword" id="RePassword" /><br />
+            <div class="form-group" >
+                密码：<input type="password" name="RePassword" id="RePassword" placeholder="请确认密码"/><br />
             </div>
-            <div>
-                邮箱：<input type="text" name="Email" id="Email" onfocus="_focus(this)" /><lable style="color:red" id="EmailL"></lable><br />
+            <div class="form-group" >
+                邮箱：<input type="text" name="Email" id="Email" onfocus="_focus(this)" placeholder="119@qq.com"/><lable style="color:red" id="EmailL"></lable><br />
             </div>
-            <input type="text" id="Code"/>
-            <label id="CodeL" class="label" style="color:red"></label><input type="button" class="btn btn-default" onclick="GetCode()" value="获取注册码"/>
-            <div>
+            <div class="form-group" >
+                验证：<input type="text" id="Code" style="width:50px" />
+                <label id="CodeL" class="label" style="color:red"></label><input type="button" class="btn btn-default" onclick="GetCode()" value="获取注册码" />
+            </div>
+            <div class="form-group" >
                 <input type="button" value="Register"  onclick="Check()" onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" />
             </div>
         </fieldset>

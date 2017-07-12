@@ -1,0 +1,60 @@
+﻿
+
+<h2>Attention</h2>
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">关注的物品</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <form action="/Car/AddToCar" method="post">
+            <table id="TableCar" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>No</th>
+                        <th>UserName</th>
+                        <th>BookName</th>
+                        <th>Time</th>
+                        <th>Delete</th>
+                        <th>Buy</th>
+                    </tr>
+                </thead>
+                <tbody id=""></tbody>
+            </table>
+            <input type="submit" value="提交勾选" class="btn-facebook" />
+        </form>
+</div>
+</div>
+<script src="~/scripts/jquery-3.1.1.js"></script>
+<script src="~/scripts/jquery.dataTables.js"></script>
+<script src="~/scripts/dataTables.bootstrap.js"></script>
+
+
+<script>
+
+      $(document).ready(function() {
+          $('#TableCar').DataTable({
+              "processing": true,
+              "serverSide": true,
+              "ajax": {
+                  url: '/Car/Attention',
+
+                  type: 'POST'
+              },
+              "columns": [
+                   { "data": "Select" },
+                  { "data": "No" },
+                  { "data": "UserName" },
+                  { "data": "BookName" },
+                  { "data": "Time" },
+                  { "data": "Delete" },
+                  { "data": "Buy" }
+              ]
+          });
+      })
+
+
+</script>
+
+

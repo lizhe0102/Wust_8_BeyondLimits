@@ -1,0 +1,64 @@
+﻿
+<h2>Car</h2>
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">待付款</h3>
+    </div>
+    <!-- /.box-header -->
+    <form action="/Car/AddToPay" method="post">
+        <div class="box-body">
+            <table id="TableCar" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>No</th>
+                        <th>UserName</th>
+                        <th>BookName</th>
+                        <th>Time</th>
+                        <th>sum</th>
+                        <th>Price</th>
+                        <th>Delete</th>
+                        <th>Buy</th>
+                    </tr>
+                </thead>
+                <tbody id=""></tbody>
+            </table>
+        </div>
+        <input type="submit"value="提交勾选"  class="btn-facebook"/>
+    </form>
+    </div>
+
+<script src="~/scripts/jquery-3.1.1.js"></script>
+   <script src="~/scripts/jquery.dataTables.js"></script>
+<script src="~/scripts/dataTables.bootstrap.js"></script>
+
+
+<script>
+
+      $(document).ready(function() {
+          $('#TableCar').DataTable({
+             
+              "processing": true,
+              "serverSide": true,
+              "ajax": {
+                  url: '/Car/CarShow',
+                  
+                  type: 'POST'
+              },
+              "columns": [
+                   { "data": "Select" },
+                  { "data": "No" },
+                  { "data": "UserName" },
+                  { "data": "BookName" },
+                  { "data": "Time" },
+                  { "data": "sum" },
+                  { "data": "Price" },
+                  { "data": "Delete" },
+                  {"data":"Buy"}
+              ]
+          });
+      })
+
+
+</script>
+<input  type="checkbox" name="SelectedBuy" value="1"/>

@@ -1,0 +1,81 @@
+﻿<header class="main-header">
+    @* BEGIN Logo *@
+    <a href="@Url.Action("Index", "Home")" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>A</b>LT</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Admin</b>LTE</span>
+    </a>
+    @* END Logo *@
+    @* BEGIN Header *@
+    <nav class="navbar navbar-static-top" role="navigation">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                
+                @* 给我们留言 *@
+                <li>
+                    <a href="~/Home/LeaveWord">给我们留言</a>
+                </li>
+                @*关于我们*@
+                <li>
+                    <a href="~/Home/AboutUs">关于我们</a>
+                </li>
+                
+                @* BEGIN User Account Menu *@
+                @{
+                    if (HttpContext.Current.Session["User"] != null)
+                    {
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="~/Content/img/user.jpg" class="user-image" alt="User Image">
+                                <span class="hidden-xs">Hello! @HttpContext.Current.Session["User"] </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="user-header">
+                                    <img src="~/Content/img/user.jpg" class="img-circle" alt="User Image">
+
+                                    <p>
+                                        Alexander Pierce - Web Developer
+                                        <small>Member since Nov. 2012</small>
+                                    </p>
+                                </li>
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="~/User/Login" class="btn btn-default btn-flat">切换账号</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="~/User/LogOut" class="btn btn-default btn-flat">注销</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="~/User/Login" >
+                                登陆
+                            </a>
+                        </li>
+                    }
+                }
+                @*zhuce*@
+                <li>
+                    <a href="~/USer/Register" >注册</i></a>
+                </li>
+
+
+                @* END User Account Menu *@
+                @* BEGIN Control Sidebar Toggle Button *@
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                </li>
+                @* END Control Sidebar Toggle Button *@
+            </ul>
+        </div>
+    </nav>
+</header>
+    

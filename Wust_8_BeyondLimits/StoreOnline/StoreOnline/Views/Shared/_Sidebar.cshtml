@@ -1,0 +1,61 @@
+﻿@using StoreOnline.Controllers
+<aside class="main-sidebar">
+    <section class="sidebar">
+        @* BEGIN Search *@
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        @* END Search *@
+        @* BEGIN Menu *@
+        <ul class="sidebar-menu">
+            <li class="header">HEADER</li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == nameof(HomeController.Index) ? "active" : "")">
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>主页</span></a>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-link"></i> <span>账号信息</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="~/User/Show">我的账号</a></li>
+                    <li><a href="~/User/Edit">修改信息</a></li>
+                </ul>
+            </li>
+            @*购物车*@
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-link"></i> <span>我的物品</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="~/Car/CarShow">我的购物车</a></li>
+                    <li><a href="~/Car/Attention">我的关注</a></li>
+                    <li><a href="~/Car/HasPay">我已购买</a></li>
+                </ul>
+            </li>
+            @*管理员模块*@
+            <li class="treeview">
+                <a href="~/Admin/UpLoadBook">
+                    <i class="fa fa-link"></i> <span>上传新书</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+            </li>
+        </ul>
+        
+        @* END Menu *@
+    </section>
+</aside>
