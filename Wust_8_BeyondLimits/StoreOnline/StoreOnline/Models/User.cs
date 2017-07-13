@@ -11,7 +11,7 @@ namespace StoreOnline.Models
     [DisplayColumn("Name")]
     public class User
     {
-        
+
         //public int Id { set; get; }
         //[DisplayName("会员账号")]
         //[Required(ErrorMessage = "请输入Email地址")]
@@ -32,6 +32,15 @@ namespace StoreOnline.Models
         //[Required(ErrorMessage = ("请输入网路昵称"))]
         //[MaxLength(10, ErrorMessage = "不超过十个字")]
         public string UserName { get; set; }
-        
+
+        public Admit Entry { set; get; }
+
+    }
+
+    public enum Admit
+    {
+        Admin,
+        VIP,
+        Visitor
     }
 }

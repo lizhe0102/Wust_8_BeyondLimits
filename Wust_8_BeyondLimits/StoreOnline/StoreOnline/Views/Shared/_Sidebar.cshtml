@@ -1,4 +1,5 @@
 ﻿@using StoreOnline.Controllers
+@using StoreOnline.Models
 <aside class="main-sidebar">
     <section class="sidebar">
         @* BEGIN Search *@
@@ -46,16 +47,23 @@
                 </ul>
             </li>
             @*管理员模块*@
-            <li class="treeview">
-                <a href="~/Admin/UpLoadBook">
-                    <i class="fa fa-link"></i> <span>上传新书</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-            </li>
+            @if (HttpContext.Current.Session["Entry"] != null)
+            {
+                if ((Admit)Enum.Parse(typeof(Admit), HttpContext.Current.Session["Entry"].ToString()) == Admit.Admin)
+                {
+                    <li class="treeview">
+                        <a href="~/Admin/UpLoadBook">
+                            <i class="fa fa-link"></i> <span>上传新书</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                    </li>
+                }
+            }
+
+
         </ul>
-        
         @* END Menu *@
     </section>
 </aside>

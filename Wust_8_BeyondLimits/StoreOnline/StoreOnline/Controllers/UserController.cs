@@ -51,7 +51,9 @@ namespace StoreOnline.Controllers
                 }
                 else
                 {
+                    user.Entry = Admit.VIP;
                     HttpContext.Session["User"] = user.UserName;
+                    HttpContext.Session["Entry"] = Enum.GetName(typeof(Admit), user.Entry);
                     Data.Data.GetData().GetUserData().Add(user);
                     rm.flag = true;
                     rm.Message = "/Home/Index";
@@ -72,9 +74,12 @@ namespace StoreOnline.Controllers
 
             ReturnMessage rm = new ReturnMessage();
             rm.flag = false;
-            rm.Message = UserName + Password + code;
+            if (HttpContext.Session["User"] != null && HttpContext.Session["User"].ToString() == UserName)
+            {
+                rm.Message = "您已登录，不能从新登陆！";
+            }
             //验证码是否通过
-            if (HttpContext.Session["Code"] != null && HttpContext.Session["Code"].ToString() == code)
+            else if (HttpContext.Session["Code"] != null && HttpContext.Session["Code"].ToString() == code)
             {
                 User user = new Models.User();
                 //查看用户是否存在
@@ -84,6 +89,7 @@ namespace StoreOnline.Controllers
                     {
                         user.UserName = u.UserName;
                         user.Password = u.Password;
+                        user.Entry = u.Entry;
                         break;
                     }
                 }
@@ -91,6 +97,7 @@ namespace StoreOnline.Controllers
                 if (user.UserName.Equals(UserName) && user.Password.Equals(Password))
                 {
                     HttpContext.Session["User"] = user.UserName;
+                    HttpContext.Session["Entry"] = Enum.GetName(typeof(Admit), user.Entry);
                     rm.flag = true;
                     rm.Message = "/Home/Index";
                 }
@@ -107,7 +114,7 @@ namespace StoreOnline.Controllers
             return Json(rm);
         }
 
-        public ActionResult  Show()
+        public ActionResult Show()
         {
             return View();
         }
@@ -116,7 +123,7 @@ namespace StoreOnline.Controllers
         public ActionResult Edit(UsreAndAdress UA)
         {
             return View();
-        } 
+        }
 
         public ActionResult GetCode(string code)
         {
