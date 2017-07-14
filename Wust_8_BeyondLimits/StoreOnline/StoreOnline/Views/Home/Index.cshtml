@@ -1,5 +1,4 @@
 ﻿@model StoreOnline.Models.BookAndPagingInfo
-
 @using StoreOnline.HtmlHelpers
 @{
     ViewBag.Title = "Index";
@@ -9,7 +8,7 @@
 <script>
     function _Submit(x) {
         var id = x.id;
-        var num = x.previousElementSibling.value;
+        var num = x.previousElementSibling.previousElementSibling.value;
         
         $.ajax({
             type: "post", url: "/Car/BuyBook", data: "id=" + id + "&num=" + num, success: function (rm) {
@@ -18,7 +17,7 @@
                 }
                 else {
                     alert(rm.Message);
-                    x.previousElementSibling.value = 0;
+                    x.previousElementSibling.previousElementSibling.value = 0;
                 }
             }, dataType: "json"
         })
@@ -46,9 +45,9 @@
     }
     function Subtract(x) {
         var sum = x.nextElementSibling.value;
-        if (sum <= 0)
+        if (sum <= 1)
         {
-            sum = 0;
+            sum = 1;
         }
         else {
             sum = sum - 1;
@@ -80,7 +79,7 @@
                     <td align="right">
                         <label style="color:red">数量：</label>
                         <input type="button" value="-" onclick="Subtract(this)" />
-                        <input type="text" style="width:25Px" value="0"  name="@p.Id" id="Sum"/>
+                        <input type="text" style="width:25Px" value="1"  name="@p.Id" id="Sum"/>
                         <input type="button" value="+" onclick="Add(this)"/>
                         <input type="button" onclick="_Submit(this)" id="@p.Id" value="提交" />
                     </td>

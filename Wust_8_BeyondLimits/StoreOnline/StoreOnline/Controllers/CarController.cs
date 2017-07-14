@@ -57,11 +57,6 @@ namespace StoreOnline.Controllers
         [HttpPost]
         public ActionResult CarShow(int start = 0, int length=10)
         {
-            foreach(var item in HttpContext.Request.Params)
-            {
-                logger.Info(() =>item.ToString()+"\r\n");
-            }
-            
             List<Order> Return;
             List<Order> o = Data.Data.GetData().GetOrderData().
                 Where(i => i.UserName == HttpContext.Session["User"].ToString()&&i.IsBuy==true&&i.HasPay==false).ToList();

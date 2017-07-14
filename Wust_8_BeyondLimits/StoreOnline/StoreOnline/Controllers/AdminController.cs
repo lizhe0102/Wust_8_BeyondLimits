@@ -13,8 +13,10 @@ namespace StoreOnline.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            //HttpContext
             return View();
         }
+        //[Authorize(Roles =Enum.GetName(typeof(Admit),Admit.Admin))]
         public ActionResult UpLoadBook()
         {
             return View();
@@ -48,6 +50,7 @@ namespace StoreOnline.Controllers
                 book.Id = bookId;
                 book.BookImg = bookId + ".jpg";
                 Data.Data.GetData().GetBook().Add(book);
+                ViewData["Message"] = "*成功添加！";
                 //保存页面数据，上传的文件只保存路径  
                 //string productImage = "/Images/Upload/Product/" + fileName;
                 //p.ProductImage = productImage;
@@ -56,6 +59,7 @@ namespace StoreOnline.Controllers
             }
             catch (Exception ex)
             {
+                ViewData["Message"] = "*添加失败！"+ex.Message.ToString();
                 ex.StackTrace.ToString();
             }
             finally

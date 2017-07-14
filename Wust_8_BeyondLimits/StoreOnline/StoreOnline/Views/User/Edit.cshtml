@@ -1,7 +1,159 @@
 ﻿<script src="~/scripts/jquery-3.1.1.js"></script>
-@{
-    ViewBag.Title = "Edit";
-}
 
-<h2>Edit</h2>
+<style>
+    label .hid {
+        display: none;
+    }
 
+    label .show {
+        display: normal;
+        color: red;
+    }
+</style>
+
+<script>
+    function Check() {
+            var emailreg = /^([a-zA-Z0-9_-])+@@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+            var telreg = /^1(3|4|5|7|8)\d{9}$/;
+            var email = document.getElementById("Email");
+            var tel=document.getElementById("Tel");
+            var pwd1 = document.getElementById("Password");
+            var adr1 = document.getElementById("Adr1");
+            var adr2 = document.getElementById("Adr2");
+            var flag = 0;
+
+            if (pwd1.value == "")
+            {
+                flag = 0;
+                document.getElementById("PasswordL").innerText = "*密码不能为空!";
+            }
+            else {
+                flag = flag + 1;
+            }
+
+            if (tel.value == "" || tel.value == null) {
+                flag=0
+                document.getElementById("TelL").innerText = "*Tel不能为空！";
+             }
+             else if (telreg.test(tel.value)) {
+                 flag = flag + 1;
+             }
+             else {
+                 flag = 0;
+                 document.getElementById("TelL").innerText = "*电话号码格式错误！"
+             }
+
+             if (email.value == "" || email.value == null) {
+                 document.getElementById("EmailL").innerText = "*Tel不能为空！";
+             }
+            else if (emailreg.test(email.value)) {
+                 flag = flag + 1;
+             }
+             else {
+                 falg = 0;
+                 document.getElementById("EmailL").innerText = "*Email格式如：1194717@qq.com！";
+             }
+
+             if (adr1.value != "")
+             {
+                 flag = flag + 1;
+             }
+             else {
+                 document.getElementById("Adr1L").innerText = "地址不能为空！";
+             }
+
+             if (adr2.value != "") {
+                 flag = flag + 1;
+             }
+             else {
+                 document.getElementById("Adr2L").innerText = "地址不能为空！";
+             }
+
+           if (flag == 5)
+            {
+               MYGET(pwd1.value, tel.value, email.value, adr1.value,adr2.value);
+            }
+        }
+
+
+        function mouseover(x) {
+            x.style.background = "aqua";
+            // x.css("background-color", "ghostwhite");
+        }
+        function mouseout(x) {
+            x.style.background = "beige";
+            // x.css("background-color","red");
+        }
+
+        function _focus(ipt) {
+            var nextnode = ipt.nextElementSibling;
+            nextnode.innerText = "";
+        }
+
+        function MYGET(x,y,z,a,b) {
+            $.ajax({
+                type: "post", url: "", data: "Password="+ x+"&Tel="+y+"&Email="+z+"&Adr1="+a+"&Adr2="+b, success: function (rm) {
+                    //alert(JSON.stringify(code));
+                       document.getElementById("ErrorL").innerText = rm.Message;
+                }, dataType: "json"
+            })
+        }
+    //MYGET(pwd1.value, tel.value, email.value, adr1.value,adr2.value);
+        $(document).ready(function() {
+            $.ajax({
+                type: "post", url: "/User/GetUserAndAdress",success: function (data) {
+                    //alert(JSON.stringify(code));/User/Edit
+                   
+                    if(data==false) {
+                        alert("您还未登陆，请登录！")
+                        window.location.href = "/User/Login";
+                    }
+                    else
+                    {
+                        document.getElementById("UserName").innerText=data.UserName;
+                        document.getElementById("Password").value = data.Password;
+                        document.getElementById("Tel").value = data.Tel;
+                        document.getElementById("Email").value=data.Email;
+                        document.getElementById("Adr1").value=data.Adr1;
+                        document.getElementById("Adr2").value=data.Adr2;
+                    }
+                }, dataType: "json"
+            })
+          }
+        )
+</script>
+
+<div style="align-content:center">
+    <form>
+        <fieldset>
+            <legend align="center">修改信息</legend>
+            <div>
+                <label id="ErrorL" style="color:red"></label>
+            </div>
+            <div class="form-group">
+                账号：<label id="UserName"></label><br />
+            </div>
+            <div class="form-group">
+                &nbsp;&nbsp;密码：<input type="password" id="Password" onfocus="_focus(this)"><lable style="color:red" id="PasswordL"></lable><br />
+            </div>
+            <div class="form-group">
+                &nbsp; &nbsp;电话：<input type="tel" id="Tel" onfocus="_focus(this)"><lable style="color:red" id="TelL"></lable><br />
+            </div>
+            <div class="form-group">
+                &nbsp;&nbsp;邮件：<input type="text" id="Email" onfocus="_focus(this)"><lable style="color:red" id="EmailL"></lable><br />
+            </div>
+            <div class="form-group">
+                地址1：<input type="text" id="Adr1" onfocus="_focus(this)"><lable style="color:red" id="Adr1L"></lable><br />
+            </div>
+            <div class="form-group">
+                地址2：<input type="text" id="Adr2" onfocus="_focus(this)"><lable style="color:red" id="Adr2L"></lable><br />
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="Submit" onclick="Check()" onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" />
+            </div>
+        </fieldset>
+    </form>
+    <p> -------------------Copyright&copy;老实憨厚的疾风剑豪-----------------------------------</p>
+
+</div>

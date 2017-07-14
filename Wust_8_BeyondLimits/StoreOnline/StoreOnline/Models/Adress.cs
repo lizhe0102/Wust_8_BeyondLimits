@@ -11,7 +11,7 @@ namespace StoreOnline.Models
         [Key]
         public string UserName { get; set; }
 
-        public string tel { get; set; }
+        public string Tel { get; set; }
 
         public string Adr1 { set; get; }
 

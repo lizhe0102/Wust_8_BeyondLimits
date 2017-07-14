@@ -1,51 +1,7 @@
-﻿@model StoreOnline.Models.UsreAndAdress
+﻿<script src="~/scripts/jquery-3.1.1.js"></script>
+@{
+    ViewBag.Title = "Show";
+}
 
+<h2>Show</h2>
 
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>UsreAndAdress</h4>
-        <hr />
-        @Html.HiddenFor(model => model.UserName)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <lable>@Model.Password</lable>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <lable>@Model.Email</lable>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.tel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <lable>@Model.tel</lable>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Adr1, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <lable>@Model.Adr1</lable>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Adr2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <lable>@Model.Adr2</lable>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <a href="" class="btn-link">修改信息</a>
-            </div>
-        </div>
-    </div>

@@ -11,7 +11,7 @@ namespace StoreOnline.Models
     [DisplayColumn("Name")]
     public class User
     {
-
+        
         //public int Id { set; get; }
         //[DisplayName("会员账号")]
         //[Required(ErrorMessage = "请输入Email地址")]

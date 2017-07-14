@@ -1,31 +1,78 @@
-﻿
-<script src="~/scripts/jquery-3.1.1.js"></script>
+﻿<script src="~/scripts/jquery-3.1.1.js"></script>
+<script>
+    function Check() {
+        var reg = /^([a-zA-Z0-9_-])+@@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+        var BookName = document.getElementById("BookName");
+        var BookType = document.getElementById("BookType");
+        var BookIntroduce = document.getElementById("BookIntroduce");
+        var Price = document.getElementById("Price");
+        var BookAdress = document.getElementById("BookAdress");
+        var flag = 0;
+
+        if (BookName.value == "") {
+            document.getElementById("BookNameL").innerText = "*书名不能为空";
+            flag = flag + 1;
+        }
+        if (BookType.value == "") {
+            document.getElementById("BookTypeL").innerText = "*书的分类不能为空";
+            flag = flag + 1;
+        }
+
+
+        if (BookIntroduce.value=="") {
+            document.getElementById("BookIntroduceL").innerText = "*书籍介绍不能为空！";
+            flag = flag + 1;
+        }
+
+        if (Price.value == "" ) {
+            document.getElementById("PriceL").innerText = "*价格不能为空！";
+            flag = flag + 1;
+        }
+        if (BookAdress.value == "") {
+            document.getElementById("BookAdressL").innerText = "*书籍地址不能为空！";
+            flag = flag + 1;
+        }
+        if (flag == 0) return true;
+        else return false;
+    }
+
+</script>
 
 <div class="box-group" style="width:400px;">
-    <form action="/Admin/UpLoadBook"  method="post" enctype="multipart/form-data">
+    <form action="/Admin/UpLoadBook" method="post" enctype="multipart/form-data">
+        <div>
+            <lable style="color:red">@ViewData["Message"]</lable>
+        </div>
         <div class="form-group">
             <label for="BookName">BookName</label>
-            <input type="text"name="BookName" class="form-control" id="BookName" placeholder="BookName">
+            <input type="text" name="BookName" class="form-control" id="BookName" placeholder="BookName">
+            <label id="BookNameL" style="color:red"></label>
         </div>
         <div class="form-group">
             <label for="BookType">BookType</label>
             <input type="text" name="BookType" class="form-control" id="BookType" placeholder="BookType">
+            <label id="BookTypeL" style="color:red"></label>
         </div>
         <div class="form-group">
             <label for="BookIntroduce">BookIntroduce</label>
-            <input type="text" name="BookIntroduce"class="form-control" id="BookIntroduce" placeholder="BookIntroduce">
+            <input type="text" name="BookIntroduce" class="form-control" id="BookIntroduce" placeholder="BookIntroduce">
+            <label id="BookIntroduceL" style="color:red"></label>
         </div>
         <div class="form-group">
             <label for="exampleInputPrice">Price</label>
-            <input type="text"  name="Price"class="form-control" id="Price" placeholder="Price">
+            <input type="text" name="Price" class="form-control" id="Price" placeholder="Price">
+            <label id="PriceL" style="color:red"></label>
         </div>
         <div class="form-group">
             <label for="BookAdress">BookImg</label>
-            <input type="file" name="BookAdress" id="BookAdress"class="easyui-filebox"/>
+            <input type="file" name="BookAdress" id="BookAdress" class="easyui-filebox" />
+            <label id="BookAdressL" style="color:red"></label>
         </div>
-        <div >
-            <input  type="submit" value="提   交"style="width:80px;height:30px;float:right" />
+        <div>
+            <input type="submit" value="提   交" onclick ="return Check()" width:80px;height:30px;float:right" />
         </div>
     </form>
 </div>
+
+
 
