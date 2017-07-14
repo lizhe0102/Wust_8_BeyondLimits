@@ -63,6 +63,9 @@
             <input type="text" name="Price" class="form-control" id="Price" placeholder="Price">
             <label id="PriceL" style="color:red"></label>
         </div>
+        <div>
+        <img  src="" id="img1"/>
+        </div>
         <div class="form-group">
             <label for="BookAdress">BookImg</label>
             <input type="file" name="BookAdress" id="BookAdress" class="easyui-filebox" />
@@ -73,6 +76,22 @@
         </div>
     </form>
 </div>
-
+@*预览*@
+<script type="text/javascript">
+    $(function () {
+        $("#BookAdress").on("change", function () {
+            var file = this.files[0];
+            if (this.files && file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img1').attr('src', e.target.result);
+                    $('#fn').text(file.name);
+                    $('#fs').text(file.size + "bytes");
+                }
+                reader.readAsDataURL(file);
+            }
+        })
+    })
+</script>
 
 
