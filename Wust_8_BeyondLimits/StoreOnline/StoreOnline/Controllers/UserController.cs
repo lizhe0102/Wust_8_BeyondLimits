@@ -90,7 +90,7 @@ namespace StoreOnline.Controllers
             ReturnMessage rm = new ReturnMessage();
             rm.flag = false;
             string ErrorMessage = "";
-            if (HttpContext.Session["Code"] != null && HttpContext.Session["Code"].ToString() == code)
+            if (HttpContext.Session["Code"] != null && HttpContext.Session["Code"].ToString().ToLower() == code)
             {
                 if (Data.Data.GetData().GetUserData().Where(i => i.UserName.Equals(user.UserName)).ToList().Count > 0)
                 {
@@ -126,7 +126,7 @@ namespace StoreOnline.Controllers
                 rm.Message = "您已登录，不能从新登陆！";
             }
             //验证码是否通过
-            else if (HttpContext.Session["Code"] != null && HttpContext.Session["Code"].ToString() == code)
+            else if (HttpContext.Session["Code"] != null && HttpContext.Session["Code"].ToString().ToLower() == code)
             {
                 User user = new Models.User() { UserName="",Password=""};
                 //查看用户是否存在
@@ -167,17 +167,24 @@ namespace StoreOnline.Controllers
         }
         
 
-        public ActionResult GetCode(string code)
+        public ActionResult GetCode()
         {
-            Random a = new Random();
-            string b = null;
-            for (int i = 0; i < 4; i++)
-            {
-                b = b + a.Next(0, 10);
-            }
-            HttpContext.Session["Code"] = b;
-            HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
-            return Json(b);
+            int width = 75; //ConverterHelper.ObjToInt(Request.Params["width"], 100);
+            int height = 35; //ConverterHelper.ObjToInt(Request.Params["height"], 40);
+            int fontsize = 20; //ConverterHelper.ObjToInt(Request.Params["fontsize"], 20);
+            string code = string.Empty;
+            byte[] bytes = ValidateCode.CreateValidateGraphic(out code, 4, width, height, fontsize);
+            HttpContext.Session["Code"] = code.ToLower();
+            return File(bytes, @"image/jpeg");
+            //Random a = new Random();
+            //string b = null;
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    b = b + a.Next(0, 10);
+            //}
+            //HttpContext.Session["Code"] = b;
+            //HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
+            //return Json(b);
         }
     }
 }

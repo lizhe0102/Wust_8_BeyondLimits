@@ -129,7 +129,8 @@
             </div>
             <div class="form-group" >
                 验证：<input type="text" id="Code" style="width:50px" />
-                <label id="CodeL" class="label" style="color:red"></label><input type="button" class="btn btn-default" onclick="GetCode()" value="获取注册码" />
+                <img id="GL_StandardCode"  style="cursor: pointer;" src="@Url.Action("GetCode", "User")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
+                @*<label id="CodeL" class="label" style="color:red"></label><input type="button" class="btn btn-default" onclick="GetCode()" value="获取注册码" />*@
             </div>
             <div class="form-group" >
                 <input type="button" value="Register"  onclick="Check()" onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" />
@@ -138,3 +139,10 @@
     </form>
    
 </div>
+<script>
+    $("#GL_StandardCode").click(function () {
+        var newSrc = "@Url.Action("GetCode", "User")" + "?t=" + (new Date()).getTime();
+        this.src=newSrc;
+        return false;
+    });
+</script>

@@ -41,13 +41,6 @@
             nextnode.innerText = "";
         }
 
-       function GetCode() {
-            $.ajax({
-                type: "post", url: "/User/GetCode", data: null, success: function (data) {
-                    document.getElementById("CodeL").innerText = data;
-                }, dataType: "json"
-            });
-        }
 
         function MYGET(x, y,z) {
             $.ajax({
@@ -84,7 +77,9 @@
             </div>
 
             <div class="form-group">
-                验证：<input type="text" id="Code" style="width:50px" /><label id="CodeL" style="color:red"></label><input type="button" onclick="GetCode()" value="获取验证码">
+                验证：<input type="text" id="Code" style="width:50px" />
+                <img id="GL_StandardCode"  style="cursor: pointer;" src="@Url.Action("GetCode", "User")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
+                @*<label id="CodeL" style="color:red"></label><input type="button" onclick="GetCode()" value="获取验证码">*@
             </div>
 
             <div class="form-group">
@@ -95,3 +90,10 @@
     </form>
 </div>
 
+<script>
+    $("#GL_StandardCode").click(function () {
+        var newSrc = "@Url.Action("GetCode", "User")" + "?t=" + (new Date()).getTime();
+        this.src=newSrc;
+        return false;
+    });
+</script>
