@@ -57,46 +57,43 @@
 
 </script>
 @* BEGIN Search *@
-@foreach (var p in Model.Books)
-{
-    <div>
-        <div class="well">
-            <table width="">
-                <tr>
-                    <td rowspan="3" width="20%" class="img-circle"><img src="~/img/book/@p.BookImg" /></td>
-                    <td width="60%"><strong class="lead">书名:@p.BookName &nbsp;&nbsp;&nbsp;</strong><span class="lead">所属类型:@p.BookType</span></td>
-                    <td width="20%" align="center">
-                        <h3><span class="pull-right label label-primary">@p.Price.ToString("c")</span></h3>
-                    </td>
-                </tr>
-                <tr>
-                    <td rowspan="2"><p><strong>介绍：</strong>@p.BookIntroduce</td>
-                    <td align="right">
-                        <input type="button" id="@p.Id" onclick="AddToAttention(this)" value="设为关注" />
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <label style="color:red">数量：</label>
-                        <input type="button" value="-" onclick="Subtract(this)" />
-                        <input type="text" style="width:25Px" value="1"  name="@p.Id" id="Sum"/>
-                        <input type="button" value="+" onclick="Add(this)"/>
-                        <input type="button" onclick="_Submit(this)" id="@p.Id" value="提交" />
-                    </td>
-                </tr>
-            </table>
+<div style="width:95%;float:right;">
+    @foreach (var p in Model.Books)
+    {
+        <div>
+            <div class="well">
+                <table style="width:100%">
+                    <tr>
+                        <td rowspan="3" width="20%" class="img-circle"><img src="~/img/book/@p.BookImg" /></td>
+                        <td width="60%"><strong class="lead">书名:@p.BookName &nbsp;&nbsp;&nbsp;</strong><span class="lead">所属类型:@p.BookType</span></td>
+                        <td width="20%" align="center">
+                            <h3><span class="pull-right label label-primary">@p.Price.ToString("c")</span></h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2"><p><strong>介绍：</strong>@p.BookIntroduce</td>
+                        <td align="right">
+                            <input type="button" id="@p.Id" onclick="AddToAttention(this)" value="设为关注" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <label style="color:red">数量：</label>
+                            <input type="button" value="-" onclick="Subtract(this)" />
+                            <input type="text" style="width:25Px" value="1" name="@p.Id" id="Sum" />
+                            <input type="button" value="+" onclick="Add(this)" />
+                            <input type="button" onclick="_Submit(this)" id="@p.Id" value="提交" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
+    }
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
     </div>
-}
-<div class="btn-group pull-right">
-    @Html.PageLinks(Model.PageInfo,x=>Url.Action("Index", new { page=x}))
 </div>
-<div>
-    <br />
-    <br />
-    <br />
-    <h2></h2>
-</div>
+
 
 
 

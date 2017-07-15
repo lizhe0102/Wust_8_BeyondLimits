@@ -25,15 +25,18 @@
         @Html.Partial("_Sidebar")
 
         <div class="content-wrapper">
-            <section class="content-header">
+            @*<section class="content-header">
                 <h1>
                     @ViewBag.Title
                     <small>@ViewBag.Description</small>
                 </h1>
-            </section>
-
-            <section class="content">
-                @RenderBody()
+            </section>*@
+            
+            <section class="content" style="height: 1000px;background:url('../../img/bg.jpg')" >
+                <div style="width:90%;">
+                    @RenderBody()
+                </div>
+                
             </section>
         </div>
 

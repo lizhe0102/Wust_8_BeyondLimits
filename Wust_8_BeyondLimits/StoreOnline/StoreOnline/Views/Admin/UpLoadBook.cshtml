@@ -37,45 +37,50 @@
     }
 
 </script>
-
-<div class="box-group" style="width:400px;">
-    <form action="/Admin/UpLoadBook" method="post" enctype="multipart/form-data">
-        <div>
-            <lable style="color:red">@ViewData["Message"]</lable>
-        </div>
-        <div class="form-group">
-            <label for="BookName">BookName</label>
-            <input type="text" name="BookName" class="form-control" id="BookName" placeholder="BookName">
-            <label id="BookNameL" style="color:red"></label>
-        </div>
-        <div class="form-group">
-            <label for="BookType">BookType</label>
-            <input type="text" name="BookType" class="form-control" id="BookType" placeholder="BookType">
-            <label id="BookTypeL" style="color:red"></label>
-        </div>
-        <div class="form-group">
-            <label for="BookIntroduce">BookIntroduce</label>
-            <input type="text" name="BookIntroduce" class="form-control" id="BookIntroduce" placeholder="BookIntroduce">
-            <label id="BookIntroduceL" style="color:red"></label>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPrice">Price</label>
-            <input type="text" name="Price" class="form-control" id="Price" placeholder="Price">
-            <label id="PriceL" style="color:red"></label>
-        </div>
-        <div>
-        <img  src="" id="img1"/>
-        </div>
-        <div class="form-group">
-            <label for="BookAdress">BookImg</label>
-            <input type="file" name="BookAdress" id="BookAdress" class="easyui-filebox" />
-            <label id="BookAdressL" style="color:red"></label>
-        </div>
-        <div>
-            <input type="submit" value="提   交" onclick ="return Check()" width:80px;height:30px;float:right" />
-        </div>
-    </form>
+<div style="width:80%;float:right;"class="form-horizontal">
+        <form action="/Admin/UpLoadBook" method="post" enctype="multipart/form-data" style="width:400px;">
+            <div class="form-group">
+                <h2>添加图书</h2>
+            </div>
+            <hr />
+            <div>
+                <lable style="color:red">@ViewData["Message"]</lable>
+            </div>
+            <div class="form-group">
+                <label for="BookName">书名</label>
+                <input type="text" name="BookName" class="form-control" id="BookName" placeholder="BookName">
+                <label id="BookNameL" style="color:red"></label>
+            </div>
+            <div class="form-group">
+                <label for="BookType">图书类别</label>
+                <input type="text" name="BookType" class="form-control" id="BookType" placeholder="BookType">
+                <label id="BookTypeL" style="color:red"></label>
+            </div>
+            <div class="form-group">
+                <label for="BookIntroduce">图书介绍</label>
+                <input type="text" name="BookIntroduce" class="form-control" id="BookIntroduce" placeholder="BookIntroduce">
+                <label id="BookIntroduceL" style="color:red"></label>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPrice">图书定价</label>
+                <input type="text" name="Price" class="form-control" id="Price" placeholder="Price">
+                <label id="PriceL" style="color:red"></label>
+            </div>
+            <div>
+                <img src="" id="img1" />
+            </div>
+            <div class="form-group">
+                <label for="BookAdress">图片预览</label>
+                <input type="file" name="BookAdress" id="BookAdress" class="btn btn-default" />
+                <label id="BookAdressL" style="color:red"></label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="提   交" onclick="return Check()"  style="width:200px;"class="btn btn-default" />
+            </div>
+        </form>
+    <hr />
 </div>
+
 @*预览*@
 <script type="text/javascript">
     $(function () {

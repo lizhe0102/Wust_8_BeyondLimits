@@ -84,60 +84,55 @@
                 }, dataType: "json"
             })
         }
-
-       
-
-        function GetCode() {
-            $.ajax({
-                type: "post", url: "/User/GetCode", data: null, success: function (data) {
-                    document.getElementById("CodeL").innerText = data;
-                }, dataType: "json"
-            });
-        }
-       /*
-        $(document).ready(function () {
-            $("input").focus(function () {
-                $(this.nextElementSibling.nextElementSibling).css("show")
-            })
-        })
-       
-        $(document).ready(function () {
-            $("input").blur(function () {
-                $(this.nextElementSibling.nextElementSibling).css("hid")
-            })
-        })
-         */
     </script>
-    <div  style="align-content:center">
+    <div  style="width:70%; float:right"class="form-horizontal">
     <form >
-        <fieldset>
-            <legend align="center">注册</legend>
+        <div><h2>注册</h2></div>
+        <hr />
             <div>
                 <label id="ErrorL" style="color:red"></label>
             </div>
             <div class="form-group" >
-                姓名：<input type="text" name="UserName" id="UserName" onfocus="_focus(this)"  placeholder="请输入用户名" /><label id="UserNameL" style="color:red"></label><br />
+                <div class="col-md-6">
+                    姓名：<input type="text" class="form-control" name="UserName" id="UserName" onfocus="_focus(this)" placeholder="请输入用户名" />
+                    <label id="UserNameL" style="color:red"></label><br />
+                </div>
             </div>
+
             <div class="form-group" >
-                密码：<input type="password" name="Password" id="Password" onfocus="_focus(this)" placeholder="请输入密码"/><lable style="color:red" id="PasswordL"></lable><br />
+                <div class="col-md-6">
+                    密码：<input type="password" class="form-control" name="Password" id="Password" onfocus="_focus(this)" placeholder="请输入密码" />
+                    <lable style="color:red" id="PasswordL"></lable><br />
+                </div>
             </div>
+
             <div class="form-group" >
-                密码：<input type="password" name="RePassword" id="RePassword" placeholder="请确认密码"/><br />
-            </div>
+                <div class="col-md-6">
+                    密码：<input type="password" class="form-control" name="RePassword" id="RePassword" placeholder="请确认密码" /><br />
+                </div>
+           </div>
+
             <div class="form-group" >
-                邮箱：<input type="text" name="Email" id="Email" onfocus="_focus(this)" placeholder="119@qq.com"/><lable style="color:red" id="EmailL"></lable><br />
-            </div>
+                <div class="col-md-6">
+                    邮箱：<input type="text" class="form-control" name="Email" id="Email" onfocus="_focus(this)" placeholder="119@qq.com" />
+                    <lable style="color:red" id="EmailL"></lable><br />
+                </div>
+           </div>
+
             <div class="form-group" >
-                验证：<input type="text" id="Code" style="width:50px" />
-                <img id="GL_StandardCode"  style="cursor: pointer;" src="@Url.Action("GetCode", "User")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
-                @*<label id="CodeL" class="label" style="color:red"></label><input type="button" class="btn btn-default" onclick="GetCode()" value="获取注册码" />*@
+                <div class="col-md-6">
+                    验证：<input type="text" id="Code" style="width:75px" />
+                    <img id="GL_StandardCode"  style="cursor: pointer;" src="@Url.Action("GetCode", "User")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
+                </div>
             </div>
+
             <div class="form-group" >
-                <input type="button" value="Register"  onclick="Check()" onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" />
+                <div class="col-md-6">
+                    <input type="button" value="Register" class="form-control" onclick="Check()" onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" />
+                </div>
             </div>
-        </fieldset>
     </form>
-   
+   <hr />
 </div>
 <script>
     $("#GL_StandardCode").click(function () {

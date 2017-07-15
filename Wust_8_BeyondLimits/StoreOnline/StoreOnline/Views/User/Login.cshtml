@@ -58,37 +58,57 @@
         }
 
 </script>
+<script>
+    $("input")
+</script>
 
-<div>
+<div style="width:70%; float:right"class="form-horizontal">
 
-    <form >
-        <fieldset>
-            <legend align="left">登陆</legend>
-            <div>
-                <label id="ErrorL" style="color:red"></label>
+    <form  >
+        <div><h2>登陆</h2></div>
+        <div>
+            <label id="ErrorL" style="color:red"></label>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-6">
+                姓名：<input type="text" class="form-control" name="UserName" id="UserName" onfocus="_focus(this)" placeholder="请输入用户名" />
+                <lable id="UserNameL" class="text-danger" ></lable>
+            </div>
+        </div>
+
+            <div class="form-group">
+                <div class="col-md-6">
+                    密码：<input type="text" class="form-control" name="Password" id="Password" onfocus="_focus(this)" placeholder="请输入密码" />
+                    <lable class="text-danger" id="PasswordL"></lable><br />
+                </div>
             </div>
 
             <div class="form-group">
-                姓名：<input type="text" name="UserName" id="UserName" onfocus="_focus(this)" placeholder="请输入用户名" /><lable style="color:red" id="UserNameL"></lable><br />
+                <div class="col-md-6">
+                    验证：<input type="text" id="Code" style="width:75px;height:30px;" />
+                    <img id="GL_StandardCode"  style="cursor: pointer;" src="@Url.Action("GetCode", "User")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
+                </div>
             </div>
+            
+        <div class="form-group">
+            <div class="col-md-6">
+                <input type="button" value="Login" onclick="Check()" onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" style="width:300px" />
+                <label>  </label>
+            </div>
+        </div>
 
-            <div class="form-group">
-                密码：<input type="text" name="Password" id="Password" onfocus="_focus(this)" placeholder="请输入密码" /><lable style="color:red" id="PasswordL"></lable><br />
+        <div  class="form-group">
+            <div class="col-md-6">
+                <a href="/User/Register">
+                    <input type="button" value="Register" onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" style="width:300px" />
+                </a>
             </div>
-
-            <div class="form-group">
-                验证：<input type="text" id="Code" style="width:50px" />
-                <img id="GL_StandardCode"  style="cursor: pointer;" src="@Url.Action("GetCode", "User")?t=@DateTime.Now.Ticks" title="看不清，点击换一张" />
-                @*<label id="CodeL" style="color:red"></label><input type="button" onclick="GetCode()" value="获取验证码">*@
-            </div>
-
-            <div class="form-group">
-                <input type="button" value="Login" onclick="Check()" onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" />
-                <input type="button" value="Register" onclick="window.location.href('/User/Register') " onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" />
-            </div>
-        </fieldset>
+        </div>
     </form>
+  <hr />
 </div>
+
 
 <script>
     $("#GL_StandardCode").click(function () {
@@ -97,3 +117,6 @@
         return false;
     });
 </script>
+
+@*<input type="submit" value="Register" onclick="window.location.href('/User/Register') " onmouseout="mouseout(this)" onmouseover="mouseover(this)" class="btn btn-default" />
+*@

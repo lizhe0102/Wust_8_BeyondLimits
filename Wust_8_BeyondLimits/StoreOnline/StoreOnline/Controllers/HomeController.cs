@@ -6,7 +6,7 @@ namespace StoreOnline.Controllers
 {
     public class HomeController : Controller
     {
-        private int PageSize = 3;
+        private int PageSize = 4;
         private List<Book> books = Data.Data.GetData().GetBook();
        
         public ActionResult Index(int page=1)

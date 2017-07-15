@@ -237,12 +237,14 @@ namespace StoreOnline.Controllers
         {
             Order o;
             string[] Selected = Request.Params.GetValues("SelectedBuy");
-            foreach (var item in Selected)
+            if(Selected!=null)
             {
-                o = Data.Data.GetData().GetOrderData().Where(i => i.No.ToString() == item).First();
-                o.HasPay = true;
+                foreach (var item in Selected)
+                {
+                    o = Data.Data.GetData().GetOrderData().Where(i => i.No.ToString() == item).First();
+                    o.HasPay = true;
+                }
             }
-            
             return RedirectToAction("CarShow");
         }
 
@@ -251,11 +253,15 @@ namespace StoreOnline.Controllers
         {
             Order o;
             string[] Selected = Request.Params.GetValues("SelectedBuy");
-            foreach (var item in Selected)
+            if (Selected != null)
             {
-                o = Data.Data.GetData().GetOrderData().Where(i => i.No.ToString() == item).First();
-                Data.Data.GetData().GetOrderData().Remove(o);
+                foreach (var item in Selected)
+                {
+                    o = Data.Data.GetData().GetOrderData().Where(i => i.No.ToString() == item).First();
+                    Data.Data.GetData().GetOrderData().Remove(o);
+                }
             }
+                
             return RedirectToAction("HasPay");
         }
 
@@ -264,11 +270,15 @@ namespace StoreOnline.Controllers
         {
             Order o;
             string[] Selected = Request.Params.GetValues("SelectedBuy");
-            foreach (var item in Selected)
+            if (Selected != null)
             {
-                o = Data.Data.GetData().GetOrderData().Where(i => i.No.ToString() == item).First();
-                o.IsBuy = true;
+                foreach (var item in Selected)
+                {
+                    o = Data.Data.GetData().GetOrderData().Where(i => i.No.ToString() == item).First();
+                    o.IsBuy = true;
+                }
             }
+               
             return RedirectToAction("Attention");
         }
     }
