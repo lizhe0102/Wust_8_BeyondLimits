@@ -8,6 +8,9 @@ using System.Web.Mvc;
 
 namespace StoreOnline.Controllers
 {
+    /// <summary>
+    /// 管理员控制器
+    /// </summary>
     public class AdminController : Controller
     {
         // GET: Admin
@@ -16,11 +19,22 @@ namespace StoreOnline.Controllers
             //HttpContext
             return View();
         }
+        /// <summary>
+        /// 上传页面
+        /// </summary>
+        /// <returns>返回上传页面视图</returns>
         //[Authorize(Roles =Enum.GetName(typeof(Admit),Admit.Admin))]
         public ActionResult UpLoadBook()
         {
             return View();
         }
+
+
+        /// <summary>
+        /// 上传书籍
+        /// </summary>
+        /// <param name="book"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult UpLoadBook(Book book)
         {

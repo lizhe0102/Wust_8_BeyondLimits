@@ -2,11 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 
 namespace StoreOnline.Data
 {
+    /// <summary>
+    /// 后台未数据库，使用单例模式
+    /// 起初设想是模拟entity.......结果发现读取简单，更新和修改无法简单实现，赢次还未完成与数据库对接
+    /// </summary>
     public class Data
     {
         private static Data data = null;
@@ -17,9 +22,9 @@ namespace StoreOnline.Data
         private List<Adress> adressData = new List<Adress>();
         private Data()
         {
-            userData.Add(new User() { UserName="wustzz",Password="1234",Email="1194717390@qq.com",Entry=Admit.Admin});
-            userData.Add(new User() { UserName="lizhe",Password="1234",Email="861775749@qq.com", Entry = Admit.VIP });
-            userData.Add(new User() { UserName = "boyaning", Password = "1234", Email = "1194717390@qq.com",Entry=Admit.VIP });
+            userData.Add(new User() { UserName="wustzz",Password= Encipher.Encrypt(HashAlgorithm.Create(), "1234"),Email="1194717390@qq.com",Entry=Admit.Admin});
+            userData.Add(new User() { UserName="lizhe",Password= Encipher.Encrypt(HashAlgorithm.Create(), "1234"), Email="861775749@qq.com", Entry = Admit.VIP });
+            userData.Add(new User() { UserName = "boyaning", Password = Encipher.Encrypt(HashAlgorithm.Create(), "1234"), Email = "1194717390@qq.com",Entry=Admit.VIP });
             bookData.Add(new Book() {BookImg="01.jpg", Id = "01",Price=23.88,BookName="视屏学C++",BookType="IT技术",BookIntroduce= "本书以全面介绍了使用Visual C++进行程序开发的各种技术。在内容安排上由浅入深，让读者循序渐进掌握编程技术；在内容讲解上结合丰富的图解和形象的比喻，帮助读者理解“晦涩难懂”的技术；在内容形式上附有大量的提示、技巧、说明、编程信条等栏目，夯实读者编程技术，丰富编程经验。" });
             bookData.Add(new Book() { BookImg = "02.jpg", Id = "02", Price = 20.98, BookName = "C#开发宝典 ", BookType = "IT技术", BookIntroduce = "本书全面细致地讲解了使用c#语言进行编程和实际项目开发的各种技术，是学习c#编程的必备图书。全书以microsoft visual studio 2010开发环境为基础，分两大部分讲解了c#编程中的各种技术。" });
             bookData.Add(new Book() { BookImg = "03.jpg", Id = "03", Price = 19.88, BookName = "ASP.NET 从入门到精通", BookType = "IT技术", BookIntroduce = "本书介绍了如何使用ASP.NET 4.0和配套的Visual Studio 2010开发环境进行Web网站开发所要学习的技术、操作方法和使用技巧。" });

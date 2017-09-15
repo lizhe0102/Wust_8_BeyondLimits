@@ -5,30 +5,52 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StoreOnline.Data;
+using System.Security.Cryptography;
 
 namespace StoreOnline.Controllers
 {
     public class UserController : Controller
     {
         // GET: User
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Login()
         {
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Register()
         {
             return View();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Edit()
         {
             return View();
         }
 
+
+        /// <summary>
+        /// 修改用户信息（该函数未完成）
+        /// </summary>
+        /// <param name="u">用户信息</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(UsreAndAdress u)
         {
@@ -37,6 +59,11 @@ namespace StoreOnline.Controllers
             return Json(rm);
         }
 
+
+        /// <summary>
+        /// 为获取用户信息提供服务
+        /// </summary>
+        /// <returns>用户信息的json串</returns>
         [HttpPost]
         public ActionResult GetUserAndAdress()
         {
@@ -76,6 +103,11 @@ namespace StoreOnline.Controllers
            
         }
 
+
+        /// <summary>
+        /// 为注销动作提供服务
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LogOut()
         {
             if (HttpContext.Session["User"] != null)
@@ -84,6 +116,14 @@ namespace StoreOnline.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+
+        /// <summary>
+        /// 为注册动作提供服务
+        /// </summary>
+        /// <param name="user">用户，包括用户名，密码等等</param>
+        /// <param name="code">验证码</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Register(User user, string code)
         {
@@ -98,6 +138,8 @@ namespace StoreOnline.Controllers
                 }
                 else
                 {
+                    string hashPassword = Encipher.Encrypt(HashAlgorithm.Create(),user.Password);
+                    user.Password = hashPassword;
                     user.Entry = Admit.VIP;
                     HttpContext.Session["User"] = user.UserName;
                     HttpContext.Session["Entry"] = Enum.GetName(typeof(Admit), user.Entry);
@@ -108,22 +150,29 @@ namespace StoreOnline.Controllers
             }
             else
             {
-                ErrorMessage = "验证码重复,请重新新输入！";
+                ErrorMessage = "验证码错误,请重新新输入！";
             }
             if (!rm.flag) rm.Message = ErrorMessage;
             HttpContext.Response.AppendHeader("Access-Control-Allow-Origin", "*");
             return Json(rm);
 
         }
+
+        /// <summary>
+        /// 未登录动作提供服务
+        /// </summary>
+        /// <param name="UserName">用户名</param>
+        /// <param name="Password">密码</param>
+        /// <param name="code">验证码</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login(string UserName, string Password, string code)
         {
-
             ReturnMessage rm = new ReturnMessage();
             rm.flag = false;
             if(HttpContext.Session["User"]!=null&& HttpContext.Session["User"].ToString()==UserName)
             {
-                rm.Message = "您已登录，不能从新登陆！";
+                rm.Message = "您已登录，不能重复登陆！";
             }
             //验证码是否通过
             else if (HttpContext.Session["Code"] != null && HttpContext.Session["Code"].ToString().ToLower() == code)
@@ -141,7 +190,7 @@ namespace StoreOnline.Controllers
                     }
                 }
                 //判断用户和密码是否正确
-                if (user.UserName.Equals(UserName) && user.Password.Equals(Password))
+                if (user.UserName.Equals(UserName) && Encipher.IsHashMatch(HashAlgorithm.Create(),user.Password,Password))
                 {
                     HttpContext.Session["User"] = user.UserName;
                     HttpContext.Session["Entry"] = Enum.GetName(typeof(Admit),user.Entry);
@@ -161,12 +210,21 @@ namespace StoreOnline.Controllers
             return Json(rm);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult  Show()
         {
             return View();
         }
         
 
+        /// <summary>
+        /// 提供验证码函数
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetCode()
         {
             int width = 75; //ConverterHelper.ObjToInt(Request.Params["width"], 100);

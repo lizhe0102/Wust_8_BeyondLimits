@@ -37,7 +37,7 @@
     }
 
 </script>
-<div style="width:80%;float:right;"class="form-horizontal">
+<div style="width:80%;float:right;" class="form-horizontal">
         <form action="/Admin/UpLoadBook" method="post" enctype="multipart/form-data" style="width:400px;">
             <div class="form-group">
                 <h2>添加图书</h2>
@@ -48,22 +48,22 @@
             </div>
             <div class="form-group">
                 <label for="BookName">书名</label>
-                <input type="text" name="BookName" class="form-control" id="BookName" placeholder="BookName">
+                <input type="text" name="BookName" class="form-control" id="BookName" placeholder="BookName"/>
                 <label id="BookNameL" style="color:red"></label>
             </div>
             <div class="form-group">
                 <label for="BookType">图书类别</label>
-                <input type="text" name="BookType" class="form-control" id="BookType" placeholder="BookType">
+                <input type="text" name="BookType" class="form-control" id="BookType" placeholder="BookType"/>
                 <label id="BookTypeL" style="color:red"></label>
             </div>
             <div class="form-group">
                 <label for="BookIntroduce">图书介绍</label>
-                <input type="text" name="BookIntroduce" class="form-control" id="BookIntroduce" placeholder="BookIntroduce">
+                <input type="text" name="BookIntroduce" class="form-control" id="BookIntroduce" placeholder="BookIntroduce"/>
                 <label id="BookIntroduceL" style="color:red"></label>
             </div>
             <div class="form-group">
                 <label for="exampleInputPrice">图书定价</label>
-                <input type="text" name="Price" class="form-control" id="Price" placeholder="Price">
+                <input type="text" name="Price" class="form-control" id="Price" placeholder="Price"/>
                 <label id="PriceL" style="color:red"></label>
             </div>
             <div>
@@ -75,7 +75,7 @@
                 <label id="BookAdressL" style="color:red"></label>
             </div>
             <div class="form-group">
-                <input type="submit" value="提   交" onclick="return Check()"  style="width:200px;"class="btn btn-default" />
+                <input type="submit" value="提   交" onclick="return Check()"  style="width:200px;" class="btn btn-default" />
             </div>
         </form>
     <hr />
@@ -86,9 +86,9 @@
     $(function () {
         $("#BookAdress").on("change", function () {
             var file = this.files[0];
-            if (this.files && file) {
+            if (this.files&&file) {
                 var reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function (e) {//e图片路径
                     $('#img1').attr('src', e.target.result);
                     $('#fn').text(file.name);
                     $('#fs').text(file.size + "bytes");
